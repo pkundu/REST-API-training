@@ -100,7 +100,19 @@ app.route("/articles/:articleId")
     }
   })
 })
-.patch()
+.patch(function(req,res){
+  Article.update(
+    {_id: req.params.articleId},{
+    title: req.query.title
+  },function (err){
+    if (!err){
+      res.send("article patched successfully");
+    }
+    else {
+      res.send(err);
+    }
+  });
+})
 .delete(function(req,res){
   const id = req.params.articleId;
   console.log("id ", id);
